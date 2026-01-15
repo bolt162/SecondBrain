@@ -1,11 +1,5 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "vite",
-  "rewrites": [
-    {
-      "source": "/v1/:path*",
-      "destination": "https://YOUR_RAILWAY_URL/v1/:path*"
-    }
-  ]
+  "framework": "vite"
 }

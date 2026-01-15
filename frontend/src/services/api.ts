@@ -1,6 +1,8 @@
 import type { Document, ChatResponse, Conversation, StreamEvent } from '../types';
 
-const API_BASE = '/v1';
+const API_BASE = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/v1`
+  : '/v1';
 
 class ApiService {
   private async request<T>(
