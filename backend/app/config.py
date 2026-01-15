@@ -11,6 +11,12 @@ class Settings(BaseSettings):
         "DATABASE_URL",
         "postgresql+asyncpg://postgres:postgres@localhost:5432/secondbrain"
     )
+    if database_url.startswith("postgresql://"):
+        database_url = database_url.replace(
+        "postgresql://",
+        "postgresql+asyncpg://",
+        1,
+    )
 
     # API Keys
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
