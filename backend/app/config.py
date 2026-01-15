@@ -1,22 +1,22 @@
 import os
 from dotenv import load_dotenv
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 
 load_dotenv()
 
 
 class Settings(BaseSettings):
     # Database
-    database_url: str = os.getenv(
-        "DATABASE_URL",
-        "postgresql+asyncpg://postgres:postgres@localhost:5432/secondbrain"
-    )
-    if database_url.startswith("postgresql://"):
-        database_url = database_url.replace(
-        "postgresql://",
-        "postgresql+asyncpg://",
-        1,
-    )
+    database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/secondbrain"
+
+    @field_validator("database_url", mode="before")
+    @classmethod
+    def fix_database_url(cls, v: str) -> str:
+        """Convert postgresql:// to postgresql+asyncpg:// for async support."""
+        if v and v.startswith("postgresql://"):
+            return v.replace("postgresql://", "postgresql+asyncpg://", 1)
+        return v
 
     # API Keys
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
