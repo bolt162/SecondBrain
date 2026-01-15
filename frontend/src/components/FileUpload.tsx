@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { Upload, X, FileAudio, FileText, Globe, Loader2, Link as LinkIcon } from 'lucide-react';
+import { useCallback, useState } from 'react';
+import { Upload, X, FileText, Globe, Loader2, Link as LinkIcon } from 'lucide-react';
 
 interface FileUploadProps {
   onUploadFile: (file: File) => Promise<void>;

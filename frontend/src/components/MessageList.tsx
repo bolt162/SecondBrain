@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { User, Bot, FileText, Globe, Mic, File } from 'lucide-react';
 import type { Message, Citation, SourceType } from '../types';

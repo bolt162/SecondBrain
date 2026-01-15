@@ -1,4 +1,3 @@
-import React from 'react';
 import { FileUpload } from './FileUpload';
 import { DocumentList } from './DocumentList';
 import type { Document } from '../types';
