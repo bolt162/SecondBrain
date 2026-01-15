@@ -2,11 +2,19 @@ from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sess
 from sqlalchemy.orm import DeclarativeBase
 from app.config import settings
 
-# Create async engine
+# Fix database URL for asyncpg
+database_url = settings.database_url
+if database_url.startswith("postgresql://"):
+    database_url = database_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+
+# Create async engine with SSL for Supabase
 engine = create_async_engine(
-    settings.database_url,
+    database_url,
     echo=settings.debug,
     pool_pre_ping=True,
+    connect_args={
+        "ssl": "require",
+    } if "supabase" in database_url or "neon" in database_url else {},
 )
 
 # Create async session factory
