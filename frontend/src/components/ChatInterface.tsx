@@ -104,7 +104,7 @@ export function ChatInterface({
           <button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary-600 text-white hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex-shrink-0 border border-primary-600 hover:border-primary-700 disabled:border-gray-300"
+            className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary-600 text-white hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex-shrink-0"
           >
             {isLoading ? (
               <Loader2 className="w-5 h-5 animate-spin" />
