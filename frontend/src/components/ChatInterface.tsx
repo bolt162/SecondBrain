@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import { MessageList } from './MessageList';
 import type { Message } from '../types';
@@ -16,8 +16,7 @@ export function ChatInterface({
   error,
   onSendMessage,
 }: ChatInterfaceProps) {
-  const [input, setInput] = React.useState('');
-  const inputRef = useRef<HTMLTextAreaElement>(null);
+  const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll to bottom when new messages arrive
@@ -25,26 +24,11 @@ export function ChatInterface({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  // Auto-resize textarea
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.style.height = 'auto';
-      inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, 200)}px`;
-    }
-  }, [input]);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim() && !isLoading) {
       onSendMessage(input.trim());
       setInput('');
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit(e);
     }
   };
 
@@ -89,18 +73,14 @@ export function ChatInterface({
       {/* Input area */}
       <div className="border-t bg-white p-4">
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
-          <div className="flex-1 relative">
-            <textarea
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Ask a question about your knowledge base..."
-              className="w-full h-10 resize-none rounded-lg border border-gray-300 px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              rows={1}
-              disabled={isLoading}
-            />
-          </div>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask a question about your knowledge base..."
+            className="flex-1 h-10 rounded-lg border border-gray-300 px-4 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            disabled={isLoading}
+          />
           <button
             type="submit"
             disabled={!input.trim() || isLoading}
@@ -114,7 +94,7 @@ export function ChatInterface({
           </button>
         </form>
         <p className="mt-2 text-xs text-gray-400 text-center">
-          Press Enter to send, Shift+Enter for new line
+          Press Enter to send
         </p>
       </div>
     </div>
