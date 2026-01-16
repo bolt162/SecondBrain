@@ -1,10 +1,13 @@
 import os
+import logging
 import tempfile
 from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form, BackgroundTasks
+
+logger = logging.getLogger(__name__)
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
@@ -111,6 +114,7 @@ async def ingest_file(
         )
         return DocumentResponse.model_validate(doc)
     except Exception as e:
+        logger.exception(f"File ingestion failed: {e}")
         raise HTTPException(status_code=500, detail=f"Ingestion failed: {str(e)}")
     finally:
         # Clean up temp file
