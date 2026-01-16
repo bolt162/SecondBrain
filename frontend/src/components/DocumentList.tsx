@@ -136,7 +136,7 @@ export function DocumentList({
             <File className="w-12 h-12 mx-auto mb-3 text-gray-300" />
             <p>No documents yet</p>
             <p className="text-sm text-gray-400 mt-1">
-              Upload files or add URLs to build your knowledge base
+              Upload files or add notes to build your knowledge base
             </p>
           </div>
         ) : (
