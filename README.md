@@ -4,14 +4,15 @@ A personal AI knowledge companion that ingests, understands, and reasons about y
 
 ## Live Demo
 
-**[View Live Application](https://second-brain-seven-kappa.vercel.app/)** *(Edit this link)*
+**[View Live Application](https://second-brain-seven-kappa.vercel.app/)**
 
 ## Screenshots
 
-![SecondBrain Chat Interface](screenshots/demo-1.png)
+![SecondBrain Chat Interface](screenshots/demo-1.png)**[SPACE][SPACE]**
 *Main chat interface with document sidebar*
 
-![SecondBrain File Upload](screenshots/demo-2.png)
+<img src="screenshots/demo-2.png" height="30%"/>
+**[SPACE][SPACE]**
 *File upload and document management*
 
 ## System Architecture
@@ -165,7 +166,3 @@ npm run build
 2. Set root directory to `frontend`
 3. Add environment variable `VITE_API_URL` with your Railway backend URL
 4. Deploy
-
-## License
-
-MIT
