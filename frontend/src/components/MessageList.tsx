@@ -1,46 +1,10 @@
 import ReactMarkdown from 'react-markdown';
-import { User, Bot, FileText, Globe, Mic, File } from 'lucide-react';
-import type { Message, Citation, SourceType } from '../types';
+import { User, Bot } from 'lucide-react';
+import type { Message } from '../types';
 
 interface MessageListProps {
   messages: Message[];
   isLoading: boolean;
-}
-
-function getSourceIcon(sourceType: SourceType) {
-  switch (sourceType) {
-    case 'audio':
-      return <Mic className="w-3 h-3" />;
-    case 'web':
-      return <Globe className="w-3 h-3" />;
-    case 'pdf':
-      return <FileText className="w-3 h-3" />;
-    default:
-      return <File className="w-3 h-3" />;
-  }
-}
-
-function CitationCard({ citation, index }: { citation: Citation; index: number }) {
-  return (
-    <div className="flex items-start gap-2 p-2 bg-gray-50 rounded-lg text-xs">
-      <span className="flex items-center justify-center w-5 h-5 rounded-full bg-primary-100 text-primary-700 font-medium shrink-0">
-        {index}
-      </span>
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-1 text-gray-600 mb-1">
-          {getSourceIcon(citation.source_type)}
-          <span className="font-medium truncate">{citation.title}</span>
-        </div>
-        {citation.page_range && (
-          <span className="text-gray-500">Page {citation.page_range}</span>
-        )}
-        {citation.time_range && (
-          <span className="text-gray-500">{citation.time_range}</span>
-        )}
-        <p className="text-gray-500 line-clamp-2 mt-1">{citation.text_snippet}</p>
-      </div>
-    </div>
-  );
 }
 
 function MessageBubble({
@@ -84,22 +48,6 @@ function MessageBubble({
             </div>
           )}
         </div>
-
-        {/* Citations */}
-        {message.citations && message.citations.length > 0 && (
-          <div className="mt-2 space-y-2 w-full">
-            <p className="text-xs text-gray-500 font-medium">Sources:</p>
-            <div className="grid gap-2">
-              {message.citations.map((citation, idx) => (
-                <CitationCard
-                  key={citation.chunk_id}
-                  citation={citation}
-                  index={idx + 1}
-                />
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* Timestamp */}
         <span className="text-xs text-gray-400 mt-1">

@@ -42,7 +42,8 @@ async def ingest_text(
         )
         return DocumentResponse.model_validate(doc)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Ingestion failed: {str(e)}")
+        logger.exception(f"Text ingestion failed: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 
 @router.post("/url", response_model=DocumentResponse)
@@ -61,7 +62,8 @@ async def ingest_url(
         )
         return DocumentResponse.model_validate(doc)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Ingestion failed: {str(e)}")
+        logger.exception(f"URL ingestion failed: {e}")
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 
 @router.post("/file", response_model=DocumentResponse)
@@ -115,7 +117,7 @@ async def ingest_file(
         return DocumentResponse.model_validate(doc)
     except Exception as e:
         logger.exception(f"File ingestion failed: {e}")
-        raise HTTPException(status_code=500, detail=f"Ingestion failed: {str(e)}")
+        raise HTTPException(status_code=500, detail="Internal server error")
     finally:
         # Clean up temp file
         if os.path.exists(tmp_path):

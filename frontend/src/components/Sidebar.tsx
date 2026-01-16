@@ -24,8 +24,7 @@ export function Sidebar({
   return (
     <div className="w-80 h-full bg-gray-50 border-r flex flex-col overflow-hidden">
       <div className="p-4 border-b bg-white">
-        <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
-          <span className="text-2xl">🧠</span>
+        <h1 className="text-xl font-bold text-gray-900">
           SecondBrain
         </h1>
         <p className="text-sm text-gray-500 mt-1">Your AI Knowledge Companion</p>
