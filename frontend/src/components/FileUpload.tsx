@@ -1,24 +1,21 @@
 import { useCallback, useState } from 'react';
-import { Upload, X, FileText, Globe, Loader2, Link as LinkIcon } from 'lucide-react';
+import { Upload, X, FileText, Loader2 } from 'lucide-react';
 
 interface FileUploadProps {
   onUploadFile: (file: File) => Promise<void>;
-  onIngestUrl: (url: string) => Promise<void>;
   onIngestText: (text: string, title?: string) => Promise<void>;
   isLoading: boolean;
 }
 
-type Tab = 'file' | 'url' | 'text';
+type Tab = 'file' | 'text';
 
 export function FileUpload({
   onUploadFile,
-  onIngestUrl,
   onIngestText,
   isLoading,
 }: FileUploadProps) {
   const [activeTab, setActiveTab] = useState<Tab>('file');
   const [isDragging, setIsDragging] = useState(false);
-  const [url, setUrl] = useState('');
   const [text, setText] = useState('');
   const [title, setTitle] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -73,21 +70,6 @@ export function FileUpload({
     [onUploadFile]
   );
 
-  const handleUrlSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(null);
-    if (!url.trim()) return;
-
-    try {
-      await onIngestUrl(url.trim());
-      setSuccess('Successfully ingested URL');
-      setUrl('');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to ingest URL');
-    }
-  };
-
   const handleTextSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -110,7 +92,6 @@ export function FileUpload({
       <div className="flex border-b">
         {[
           { id: 'file' as Tab, label: 'Upload File', icon: Upload },
-          { id: 'url' as Tab, label: 'Add URL', icon: LinkIcon },
           { id: 'text' as Tab, label: 'Add Note', icon: FileText },
         ].map(({ id, label, icon: Icon }) => (
           <button
@@ -188,37 +169,6 @@ export function FileUpload({
               </p>
             </label>
           </div>
-        )}
-
-        {/* URL input */}
-        {activeTab === 'url' && (
-          <form onSubmit={handleUrlSubmit}>
-            <div className="flex gap-2">
-              <input
-                type="url"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                placeholder="https://example.com/article"
-                className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                disabled={isLoading}
-              />
-              <button
-                type="submit"
-                disabled={!url.trim() || isLoading}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-600 text-white hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
-              >
-                {isLoading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Globe className="w-4 h-4" />
-                )}
-                Ingest
-              </button>
-            </div>
-            <p className="mt-2 text-xs text-gray-400">
-              Enter a URL to scrape and add to your knowledge base
-            </p>
-          </form>
         )}
 
         {/* Text input */}

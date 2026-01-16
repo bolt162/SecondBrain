@@ -6,7 +6,6 @@ interface SidebarProps {
   documents: Document[];
   isLoading: boolean;
   onUploadFile: (file: File) => Promise<void>;
-  onIngestUrl: (url: string) => Promise<void>;
   onIngestText: (text: string, title?: string) => Promise<void>;
   onDeleteDocument: (id: string) => Promise<void>;
   onRefresh: () => Promise<void>;
@@ -16,7 +15,6 @@ export function Sidebar({
   documents,
   isLoading,
   onUploadFile,
-  onIngestUrl,
   onIngestText,
   onDeleteDocument,
   onRefresh,
@@ -33,7 +31,6 @@ export function Sidebar({
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         <FileUpload
           onUploadFile={onUploadFile}
-          onIngestUrl={onIngestUrl}
           onIngestText={onIngestText}
           isLoading={isLoading}
         />

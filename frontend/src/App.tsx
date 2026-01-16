@@ -30,7 +30,6 @@ function App() {
           documents={documents.documents}
           isLoading={documents.isLoading}
           onUploadFile={documents.uploadFile}
-          onIngestUrl={documents.ingestUrl}
           onIngestText={documents.ingestText}
           onDeleteDocument={documents.deleteDocument}
           onRefresh={documents.refresh}
