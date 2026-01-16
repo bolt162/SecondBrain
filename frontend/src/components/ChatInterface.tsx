@@ -54,6 +54,11 @@ export function ChatInterface({
       <div className="flex-1 overflow-y-auto p-4">
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-500">
+            <img 
+              src="/main_logo.png" 
+              alt="SecondBrain Logo" 
+              className="w-16 h-16 mb-4" 
+            />
             <h2 className="text-xl font-semibold mb-2">Welcome to SecondBrain</h2>
             <p className="text-center max-w-md">
               Ask me anything about your uploaded documents, audio recordings, or saved web pages.
