@@ -4,7 +4,7 @@ A personal AI knowledge companion that ingests, understands, and reasons about y
 
 ## Live Demo
 
-**[View Live Application](https://your-app-name.vercel.app)** *(Edit this link)*
+**[View Live Application](https://second-brain-seven-kappa.vercel.app/)** *(Edit this link)*
 
 ## Screenshots
 
@@ -16,7 +16,7 @@ A personal AI knowledge companion that ingests, understands, and reasons about y
 
 ## System Architecture
 
-For detailed system design and architecture diagrams, see: [System Design Document](./docs/SYSTEM_DESIGN.md)
+For detailed system design and architecture diagrams, see: [System Design Document](./SYSTEM_DESIGN.pdf)
 
 ## Features
 
