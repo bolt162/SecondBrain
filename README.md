@@ -8,10 +8,10 @@ A personal AI knowledge companion that ingests, understands, and reasons about y
 
 ## Screenshots
 
-![SecondBrain Chat Interface](screenshots/demo-1.png)**  **
+![SecondBrain Chat Interface](screenshots/demo-1.png)  
 *Main chat interface with document sidebar*
 
-<img src="screenshots/demo-2.png" width="50" height="100"/>**  **
+<img src="screenshots/demo-2.png" width="200" height="500"/>  
 *File upload and document management*
 
 ## System Architecture
