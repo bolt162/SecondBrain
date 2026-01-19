@@ -83,6 +83,17 @@ async def ingest_file(
     """
     from app.config import settings
 
+    # Allowed file extensions
+    ALLOWED_EXTENSIONS = {'.pdf', '.md', '.txt', '.mp3', '.m4a', '.wav'}
+
+    # Validate file extension
+    ext = os.path.splitext(file.filename or "")[1].lower()
+    if ext not in ALLOWED_EXTENSIONS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"File type not allowed. Supported types: PDF, Markdown, Text, Audio (MP3, M4A, WAV)"
+        )
+
     # Validate source type
     try:
         source_type_enum = SourceType(source_type)
@@ -110,7 +121,6 @@ async def ingest_file(
         )
 
     # Save uploaded file temporarily
-    ext = os.path.splitext(file.filename or "")[1]
     with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as tmp:
         tmp.write(content)
         tmp_path = tmp.name
