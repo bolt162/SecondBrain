@@ -28,7 +28,7 @@ class Settings(BaseSettings):
 
     # File storage
     upload_dir: str = os.getenv("UPLOAD_DIR", "./uploads")
-    max_file_size_mb: int = 50
+    max_file_size_mb: int = 20
 
     # Embedding settings
     embedding_model: str = "text-embedding-3-small"

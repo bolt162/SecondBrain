@@ -81,6 +81,8 @@ async def ingest_file(
     - **source_type**: Type of file (audio, pdf, markdown, text)
     - **created_at**: Optional creation timestamp (ISO format)
     """
+    from app.config import settings
+
     # Validate source type
     try:
         source_type_enum = SourceType(source_type)
@@ -98,10 +100,18 @@ async def ingest_file(
         except ValueError:
             raise HTTPException(status_code=400, detail="Invalid created_at format. Use ISO format.")
 
+    # Read file content and validate size
+    content = await file.read()
+    max_size_bytes = settings.max_file_size_mb * 1024 * 1024
+    if len(content) > max_size_bytes:
+        raise HTTPException(
+            status_code=400,
+            detail=f"File size exceeds maximum allowed size of {settings.max_file_size_mb} MB"
+        )
+
     # Save uploaded file temporarily
     ext = os.path.splitext(file.filename or "")[1]
     with tempfile.NamedTemporaryFile(delete=False, suffix=ext) as tmp:
-        content = await file.read()
         tmp.write(content)
         tmp_path = tmp.name
 
